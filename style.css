@@ -1,0 +1,119 @@
+:root {
+    --bg-color: #050505;
+    --text-color: #ffffff;
+    --accent-color: rgba(255, 255, 255, 0.15);
+    --aura-glow: rgba(255, 255, 255, 0.03);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Outfit', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    user-select: none;
+}
+
+/* The "Breathing" Aura */
+.aura-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.aura {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--aura-glow) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: breathe 4s ease-in-out infinite;
+    filter: blur(40px);
+}
+
+@keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.4); opacity: 1; }
+}
+
+/* Clock Content */
+.clock-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+.time-display {
+    font-size: 12rem;
+    font-weight: 100;
+    letter-spacing: -5px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    line-height: 1;
+}
+
+.separator {
+    font-weight: 100;
+    opacity: 0.3;
+    animation: pulse-separator 2s infinite;
+}
+
+@keyframes pulse-separator {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.5; }
+}
+
+.date-display {
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0.4;
+    margin-top: 1rem;
+}
+
+/* Unique Seconds Tracker */
+.seconds-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.seconds-ring::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--accent-color), transparent 20%, transparent 80%, var(--accent-color));
+    transform: translateX(-50%) rotate(0deg);
+    transition: transform 1s linear;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .time-display {
+        font-size: 6rem;
+    }
+    .date-display {
+        font-size: 0.8rem;
+    }
+}
